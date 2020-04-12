@@ -1,0 +1,5 @@
+***********YOU CAN REPORT ANY BUGS HERE WE ARE READY TO FIX IT************************
+
+*Steps to report a bug:
+
+Fork this project type your bug here and give a pull requests,thats it we will look upon the issue.
