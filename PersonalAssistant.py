@@ -11,7 +11,7 @@ from selenium.webdriver.common.keys import Keys
 import time
 import tkinter.messagebox as Mbox
 from pygame import mixer
-from imageai.Detection import ObjectDetection
+#from imageai.Detection import ObjectDetection
 #********************************************************#
 #Recognize function
 def Recognize():
@@ -323,6 +323,9 @@ def Youtube(words):
             play=True
     cmd="https://www.youtube.com/results?search_query="
     os.system("start "+cmd+temp)
+    time.sleep(5)
+    pgi.moveTo(131,298,1)
+    pgi.click()
 #********************************************************#
 def Ordered(e1):
     s=e1.get()
