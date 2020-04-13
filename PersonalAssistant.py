@@ -361,7 +361,7 @@ dummy_label.grid(row=0,column=0)
 
 #Title Label for our project
 l1=Label(root,text='Intelligent Personal Assistant')
-l1.config(font=("Century Gothic", 14))
+l1.config(font =('Verdana', 15))
 l1.grid(row=0,column=1)
 
 #Dummy label
@@ -382,9 +382,12 @@ e1s=StringVar()
 e1=Entry(root,textvariable=e1s)
 e1.grid(row=2,column=1)
 
+dummy_label=Label(root,text='          ')
+dummy_label.grid(row=3,column=0)
+
 #Order Button
-b1=Button(root,text='Order',command=lambda:Ordered(e1))
-b1.grid(row=2,column=2)
+b1=Button(root,text='Execute',command=lambda:Ordered(e1))
+b1.grid(row=3,column=1)
 
 
 root.mainloop()
