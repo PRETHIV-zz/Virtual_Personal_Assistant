@@ -1,6 +1,13 @@
 #Project 1stUI try
 
 #********************************************************#
+#GLOBAL VARS
+
+
+icon_color="assets/voice.png"
+ui_theme_color="#3d0773"
+
+#********************************************************#
 #IMPORTED PACKAGES
 from tkinter import *
 import speech_recognition as sr
@@ -355,39 +362,31 @@ root=Tk()
 root.geometry("400x400")
 root.title("Intelligent Personal Assistant")
 
-#Dummy label
-dummy_label=Label(root,text='          ')
-dummy_label.grid(row=0,column=0)
-
 #Title Label for our project
-l1=Label(root,text='Intelligent Personal Assistant')
-l1.config(font =('Verdana', 15))
-l1.grid(row=0,column=1)
+l1=Label(root,text='Virtual Personal Assistant')
+l1.config(font =('Verdana', 18 ),foreground=ui_theme_color)
+l1.grid(row=0,column=0,padx=45)
+l1['bg']=ui_theme_color
 
-#Dummy label
-dummy_label=Label(root,text='          ')
-dummy_label.grid(row=1,column=0)
+#use padx ,pady to provide space in grid
 
+photo1 = PhotoImage(file = icon_color) 
 
-b1=Button(root,text='Speak',command=Recognize)
-b1.grid(row=1,column=1)
+b1=Button(root,text='Speak',image = photo1,command=Recognize,borderwidth=0)
+b1.grid(row=1,column=0)
+ 
 
-#You Said Label
-l1=Label(root,text='You Said   =>')
-l1.config(font=("Century Gothic", 10))
-l1.grid(row=2,column=0)
 
 #Text will be displayed whatever the user is said
 e1s=StringVar()
-e1=Entry(root,textvariable=e1s)
-e1.grid(row=2,column=1)
-
-dummy_label=Label(root,text='          ')
-dummy_label.grid(row=3,column=0)
+e1=Entry(root,textvariable=e1s,borderwidth=0)
+e1.grid(row=2,column=0,pady=30)
 
 #Order Button
-b1=Button(root,text='Execute',command=lambda:Ordered(e1))
-b1.grid(row=3,column=1)
+photo = PhotoImage(file = "assets/execute.png") 
 
+b1=Button(root,text='Execute',image=photo,command=lambda:Ordered(e1),borderwidth=0)
+b1.grid(row=3,column=0)
 
+root['bg'] = ui_theme_color
 root.mainloop()
