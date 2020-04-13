@@ -60,7 +60,7 @@ def Order_Online(words):
         search=''
     if shop=='amazon' or shop=='Amazon' or shop=='AMAZON':
         if len(search)>0:
-            driver=webdriver.Chrome(executable_path='D:\\SELENIUM\\chromedriver.exe')
+            driver=webdriver.Chrome(executable_path='chromedriver.exe')
             driver.maximize_window()
             driver.get('https://www.amazon.in/')
             elem=driver.find_element_by_name("field-keywords")
