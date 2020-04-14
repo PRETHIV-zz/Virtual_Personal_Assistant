@@ -147,6 +147,7 @@ def auxilary(search,disk):
     l1a.grid(row=0,column=0,padx=20,pady=10)
     print(search,disk)
     e2=Entry(h1)
+    e2.config(font=(ui_font, 10))
     e2.grid(row=0,column=1)
     
     e2.delete(0,END)
@@ -158,6 +159,7 @@ def auxilary(search,disk):
     l1a['bg']=ui_theme_color
 
     e3=Entry(h1)
+    e3.config(font=(ui_font, 10))
     e3.grid(row=1,column=1)
     e3.delete(0,END)
     e3.insert(0,disk)
@@ -244,15 +246,19 @@ def Seperatefiles():
     h1.title("Seperate Files")
 
     l1a=Label(h1,text='Execution Path')
-    l1a.config(font=("Century Gothic", 10))
+    l1a.config(font=(ui_font, 10),foreground="#ffffff")
     l1a.grid(row=0,column=0)
+    l1a['bg']=ui_theme_color
     
     e2=Entry(h1)
+    e2.config(font=(ui_font, 10))
     e2.grid(row=0,column=1)
     
     b1a=Button(h1,text='Seperate Files',command=lambda:Seperate(e2))
-    b1a.grid(row=2,column=0)
-
+    b1a.config(font =(ui_font, 10 ),foreground="#ffffff",borderwidth=1,highlightthickness=2,highlightcolor='#ffffff',highlightbackground='#ffffff')
+    b1a['bg']=ui_theme_color
+    b1a.grid(row=2,column=0,pady=20,padx=20)
+    h1['bg']=ui_theme_color
     h1.mainloop()
 
 #********************************************************#
@@ -300,22 +306,29 @@ def PickObjects():
     h1.title("Pick Objects")
 
     l1a=Label(h1,text='Object Name ')
-    l1a.config(font=("Century Gothic", 10))
+    l1a.config(font=(ui_font, 10),foreground="#ffffff")
     l1a.grid(row=0,column=0)
-    
+    l1a['bg']=ui_theme_color
+
     e2=Entry(h1)
-    e2.grid(row=0,column=1)
+    e2.config(font=(ui_font, 10))
+    e2.grid(row=0,column=1,padx=20)
 
     l1a=Label(h1,text='Execution Path ')
-    l1a.config(font=("Century Gothic", 10))
-    l1a.grid(row=1,column=0)
-
+    l1a.config(font=(ui_font, 10),foreground="#ffffff")
+    l1a.grid(row=1,column=0,pady=10)
+    l1a['bg']=ui_theme_color
+    
     e3=Entry(h1)
-    e3.grid(row=1,column=1)
+    e3.config(font=(ui_font, 10))
+    e3.grid(row=1,column=1,padx=20,pady=10)
     
     b1a=Button(h1,text='Pickup Photos',command=lambda:ObjectPicker(e2,e3))
-    b1a.grid(row=2,column=0)
+    b1a.config(font =(ui_font, 10 ),foreground="#ffffff",borderwidth=1,highlightthickness=2,highlightcolor='#ffffff',highlightbackground='#ffffff')
+    b1a['bg']=ui_theme_color
+    b1a.grid(row=2,column=0,pady=10,padx=20)
 
+    h1['bg']=ui_theme_color
     h1.mainloop()
 #********************************************************#
 def GoogleIt(words):
