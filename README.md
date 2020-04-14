@@ -4,7 +4,7 @@
 # About Triangle
       Triangle has been initially developed as for our Bachelors final year project.Later we decided to move them into open source to continuosly add features,fix bugs and improve the quality of the personal assistant.Your contributions are always welcome.
       
-# Moto of the Project
+# Moto of Triangle
       While developing,we had decided to create a VPA that will implement the missing features that are all expected by the daily pc users.It doesnt mean it lacks the existing features,it is also there.
       
 # Whats new?
@@ -15,7 +15,7 @@
       *Our VPA is capable of detecting in what pictures you are present and can copy to the specified location.
       *Object detection in a image is done in our pc.
 
-# Who can Conribute to our project?
+# Who can Conribute to Triangle?
       Anyone with a decent coding skill and creative mind can contribute to our project.
       
 # I am a web developer can i contribute?
