@@ -1,5 +1,5 @@
 # Virtual_Personal_Assistant
-      A Virtual Personal Assistant is one which helps user by doing their tasks they had told to do.As you all know it is like a google assistant ,apple siri or microsoft cortona.
+      A Virtual Personal Assistant is one which helps user by doing their tasks they had told to do.As you all know it is like a google assistant ,apple siri or microsoft cortona.Triangle is an open source VPA,that anyone can use and modify it according to their needs.
       
 # About the project
       This project has been initially developed as for our Bachelors final year project.Later we decided to move them into open source to continuosly add features,fix bugs and improve the quality of the personal assistant.Your contributions are always welcome.
