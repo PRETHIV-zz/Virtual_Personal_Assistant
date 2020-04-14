@@ -372,7 +372,7 @@ l1['bg']=ui_theme_color
 
 photo1 = PhotoImage(file = icon_color) 
 
-b1=Button(root,text='Speak',image = photo1,command=Recognize,borderwidth=0)
+b1=Button(root,text='Speak',image = photo1,command=Recognize,borderwidth=0,highlightthickness=0)
 b1.grid(row=1,column=0)
  
 
