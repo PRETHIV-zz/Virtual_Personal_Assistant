@@ -7,6 +7,9 @@
 icon_color="assets/voice.png"
 ui_theme_color="#3d0773"
 
+ui_font="Verdana"
+ui_fontsize=18
+
 #********************************************************#
 #IMPORTED PACKAGES
 from tkinter import *
@@ -20,6 +23,12 @@ import tkinter.messagebox as Mbox
 from pygame import mixer
 #from imageai.Detection import ObjectDetection
 #********************************************************#
+#Play Sound
+def PlaySound(filename):
+    mixer.init()
+    mixer.music.load(filename)
+    mixer.music.play()
+#********************************************************#
 #Recognize function
 def Recognize():
     r=sr.Recognizer()
@@ -32,14 +41,8 @@ def Recognize():
             print(text)
         except:
             print("Speak Clearly")
-    #os.system("welcome.mp3")
+            e1s.set('        Speak clearly')
 #End of Recognize Function
-#********************************************************#
-#Play Sound
-def PlaySound(filename):
-    mixer.init()
-    mixer.music.load(filename)
-    mixer.music.play()
 #********************************************************#
 def Order_Pizza(words):
     print(words)
@@ -75,17 +78,33 @@ def Order_Online(words):
             elem.send_keys(search)
             elem.send_keys(Keys.RETURN)
         else:
-            PlaySound("recognize_failed.mp3")
             Mbox.showinfo("what you are looking for?","Couldn't recognize your item")
     elif shop=='flipkart' or shop=='Flipkart' or shop=='FLIPKART':
         #Flipkart algorithm should be coded here
-        pass
+        driver=webdriver.Chrome(executable_path='drivers/chromedriver.exe')
+        driver.maximize_window()
+        driver.get('https://www.flipkart.com/')
+        elem=driver.find_element_by_name("q")
+        elem.clear()
+        elem.send_keys(search)
+        elem.send_keys(Keys.RETURN)
     elif shop=='snapdeal' or shop=='Snapdeal' or shop=='SNAPDEAL':
         #snapdeal algorithm should be coded here
-        pass
+        driver=webdriver.Chrome(executable_path='drivers/chromedriver.exe')
+        driver.maximize_window()
+        driver.get('https://www.snapdeal.com/')
+        elem=driver.find_element_by_name("keyword")
+        elem.clear()
+        elem.send_keys(search)
+        elem.send_keys(Keys.RETURN)
     elif shop=='myntra' or shop=='Myntra' or shop=='MYNTRA':
-        #myntra algorithm should be coded here
-        pass
+        driver=webdriver.Chrome(executable_path='drivers/chromedriver.exe')
+        driver.maximize_window()
+        driver.get('https://www.myntra.com/')
+        elem=driver.find_element_by_class_name("desktop-searchBar")
+        elem.clear()
+        elem.send_keys(search)
+        elem.send_keys(Keys.RETURN)
 
 
 #********************************************************#
@@ -94,7 +113,6 @@ def Start_Search(e2,e3):
     file=e2.get()
     disk=e3.get()
     found=False
-    PlaySound("start_search.mp3")
     if disk=='d' or disk=='D':
         disk='D:'
     elif disk=='e' or disk=='E':
@@ -106,7 +124,6 @@ def Start_Search(e2,e3):
         for files in f:
             print(files)
             if files in file:
-                PlaySound("file_found.mp3")
                 file_path+='\\'
                 file_path+=files
                 print(file_path)
@@ -120,23 +137,25 @@ def Start_Search(e2,e3):
 
 #Auxillary for Search PC
 def auxilary(search,disk):
-    PlaySound("confirm_search.mp3")
     h1=Tk()
     h1.geometry("400x200")
+    h1['bg']=ui_theme_color
     h1.title('Confirm your file and disk')
     l1a=Label(h1,text='Item to be searched ')
-    l1a.config(font=("Century Gothic", 10))
-    l1a.grid(row=0,column=0)
+    l1a.config(font=(ui_font, 10),foreground="#ffffff")
+    l1a['bg']=ui_theme_color
+    l1a.grid(row=0,column=0,padx=20,pady=10)
     print(search,disk)
     e2=Entry(h1)
     e2.grid(row=0,column=1)
+    
     e2.delete(0,END)
     e2.insert(0,search)
     
     l1a=Label(h1,text='Disk to lookup for ')
-    l1a.config(font=("Century Gothic", 10))
+    l1a.config(font=(ui_font, 10),foreground="#ffffff")
     l1a.grid(row=1,column=0)
-
+    l1a['bg']=ui_theme_color
 
     e3=Entry(h1)
     e3.grid(row=1,column=1)
@@ -144,8 +163,10 @@ def auxilary(search,disk):
     e3.insert(0,disk)
     
     b1a=Button(h1,text='Start Search',command=lambda:Start_Search(e2,e3))
-    b1a.grid(row=2,column=0)
-    
+    b1a.config(font =(ui_font, 10 ),foreground="#ffffff",borderwidth=1,highlightthickness=2,highlightcolor='#ffffff',highlightbackground='#ffffff')
+    b1a['bg']=ui_theme_color
+    b1a.grid(row=2,column=0,pady=20)
+
     h1.mainloop()
     print("hi")
 
@@ -336,6 +357,10 @@ def Youtube(words):
 #********************************************************#
 def Ordered(e1):
     s=e1.get()
+    if s=="        Speak clearly" or s=="        Speak again!!!":
+        print("Not recognized properly")
+        e1s.set("        Speak again!!!")
+        return
     words=list(s.split())
     if 'order' in words or 'Order' in words or 'ORDER' in words or 'buy' in words or 'Buy' in words or 'BUY' in words:
         if 'pizza' in words or 'Pizza' in words or 'PIZZA' in words:
@@ -361,17 +386,15 @@ def Ordered(e1):
 root=Tk()
 root.geometry("400x400")
 root.title("Intelligent Personal Assistant")
-
 #Title Label for our project
 l1=Label(root,text='Virtual Personal Assistant')
-l1.config(font =('Verdana', 18 ),foreground=ui_theme_color)
+l1.config(font =(ui_font, 18 ),foreground=ui_theme_color)
 l1.grid(row=0,column=0,padx=45)
 l1['bg']=ui_theme_color
 
 #use padx ,pady to provide space in grid
 
 photo1 = PhotoImage(file = icon_color) 
-
 b1=Button(root,text='Speak',image = photo1,command=Recognize,borderwidth=0,highlightbackground=ui_theme_color,highlightcolor=ui_theme_color,highlightthickness=0)
 b1.grid(row=1,column=0)
  
@@ -380,7 +403,7 @@ b1.grid(row=1,column=0)
 #Text will be displayed whatever the user is said
 e1s=StringVar()
 e1=Entry(root,textvariable=e1s,borderwidth=0)
-e1.config(font =('Verdana', 14),foreground='#ffffff')
+e1.config(font =(ui_font, 14),foreground='#ffffff')
 e1.grid(row=2,column=0,pady=30)
 e1['bg']=ui_theme_color
 
