@@ -45,7 +45,8 @@ def Recognize():
 #End of Recognize Function
 #********************************************************#
 def Order_Pizza(words):
-    os.system("start https://www.swiggy.com/search?q=Pizza")
+    url_to_lookup_for="start https://www.swiggy.com/search?q="+words
+    os.system(url_to_lookup_for)
 #********************************************************#
 #Order_Online
 def Order_Online(words):
@@ -356,16 +357,24 @@ def Youtube(words):
 #********************************************************#
 def Ordered(e1):
     s=e1.get()
+    #As for now it is hardcoded but it has to be made as backend
+    fooditems=['pizza','dosa','idly','burger','chapathi','vada','samosa']
+    isfoodquery=False
     if s=="        Speak clearly" or s=="        Speak again!!!":
         print("Not recognized properly")
         e1s.set("        Speak again!!!")
         return
     words=list(s.split())
+    w1=[]
+    for i in words:
+        w1.append(i.lower())
+    for i in fooditems:
+        if i in w1:
+            isfoodquery=True
+            Order_Pizza(i)
+            return
     if 'order' in words or 'Order' in words or 'ORDER' in words or 'buy' in words or 'Buy' in words or 'BUY' in words:
-        if 'pizza' in words or 'Pizza' in words or 'PIZZA' in words:
-            Order_Pizza(words)
-        else:
-            Order_Online(words)
+        Order_Online(words)
     elif 'search' in words or 'Search' in words or 'SEARCH' in words:
         Search_Pc(words)
     elif 'shutdown' in words or 'Shutdown' in words or 'SHUTDOWN' in words:
