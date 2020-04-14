@@ -45,8 +45,7 @@ def Recognize():
 #End of Recognize Function
 #********************************************************#
 def Order_Pizza(words):
-    print(words)
-
+    os.system("start https://www.swiggy.com/search?q=Pizza")
 #********************************************************#
 #Order_Online
 def Order_Online(words):
