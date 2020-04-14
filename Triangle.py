@@ -67,7 +67,7 @@ def Order_Online(words):
         search=''
     if shop=='amazon' or shop=='Amazon' or shop=='AMAZON':
         if len(search)>0:
-            driver=webdriver.Chrome(executable_path='chromedriver.exe')
+            driver=webdriver.Chrome(executable_path='drivers/chromedriver.exe')
             driver.maximize_window()
             driver.get('https://www.amazon.in/')
             elem=driver.find_element_by_name("field-keywords")
@@ -372,7 +372,7 @@ l1['bg']=ui_theme_color
 
 photo1 = PhotoImage(file = icon_color) 
 
-b1=Button(root,text='Speak',image = photo1,command=Recognize,borderwidth=0,highlightthickness=0)
+b1=Button(root,text='Speak',image = photo1,command=Recognize,borderwidth=0,highlightbackground=ui_theme_color,highlightcolor=ui_theme_color,highlightthickness=0)
 b1.grid(row=1,column=0)
  
 
@@ -380,12 +380,14 @@ b1.grid(row=1,column=0)
 #Text will be displayed whatever the user is said
 e1s=StringVar()
 e1=Entry(root,textvariable=e1s,borderwidth=0)
+e1.config(font =('Verdana', 14),foreground='#ffffff')
 e1.grid(row=2,column=0,pady=30)
+e1['bg']=ui_theme_color
 
 #Order Button
 photo = PhotoImage(file = "assets/execute.png") 
 
-b1=Button(root,text='Execute',image=photo,command=lambda:Ordered(e1),borderwidth=0)
+b1=Button(root,text='Execute',image=photo,command=lambda:Ordered(e1),borderwidth=0,highlightthickness=0)
 b1.grid(row=3,column=0)
 
 root['bg'] = ui_theme_color
