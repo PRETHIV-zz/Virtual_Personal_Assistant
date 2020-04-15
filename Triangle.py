@@ -2,13 +2,10 @@
 
 #********************************************************#
 #GLOBAL VARS
-
-
 icon_color="assets/voice.png"
 ui_theme_color="#3d0773"
 ui_font="Verdana"
 ui_fontsize=18
-
 #********************************************************#
 #IMPORTED PACKAGES
 from tkinter import *
@@ -280,14 +277,6 @@ def ObjectPicker(e2,e3):
     detector.setModelTypeAsRetinaNet()
     detector.setModelPath( os.path.join(cur_path, "resnet50_coco_best_v2.0.1.h5"))
     detector.loadModel()
-    #iname=input("Enter the image i want to analyse :")
-    #firstname=""
-    #for i in iname:
-    #    if i=='.':
-    #        break
-    #    else:
-    #        firstname+=i
-    #os.chdir("selectedimages")
     for r,d,f in os.walk(execution_path):
         for file in f:
             if '.jpg' in file:
@@ -300,8 +289,6 @@ def ObjectPicker(e2,e3):
                         print(o)
                         os.system(o)
         break
-        #print(eachObject["name"] , " : " , eachObject["percentage_probability"] )
-    #print("End _of _our _sneak Peak Coded by rocky")
     Mbox.showinfo("Info","Task Finished")
     os.chdir(cur_path)
 #********************************************************#
@@ -404,7 +391,12 @@ def Ordered(e1):
     elif 'google' in words or 'Google' in words:
         GoogleIt(words)
     elif 'play' in words or 'Play' in words:
-        Youtube(words)
+        if 'games' in w1 or 'game' in w1:
+            os.system('start https://prethiv.github.io/tictacreact/')
+        else:
+            Youtube(words)
+    elif 'games' in w1 or 'game' in w1:
+        os.system('start https://prethiv.github.io/tictacreact/')
     else:
         GoogleIt1(s)
 #********************************************************#
