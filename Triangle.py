@@ -411,7 +411,7 @@ l1=Label(root,text='Virtual Personal Assistant')
 l1.config(font =(ui_font, 18 ),foreground=ui_theme_color)
 l1.grid(row=0,column=0,padx=45)
 l1['bg']=ui_theme_color
-
+print('chan 1')
 #use padx ,pady to provide space in grid
 
 photo1 = PhotoImage(file = icon_color) 
