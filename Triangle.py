@@ -6,7 +6,6 @@
 
 icon_color="assets/voice.png"
 ui_theme_color="#3d0773"
-
 ui_font="Verdana"
 ui_fontsize=18
 
@@ -25,9 +24,15 @@ from pygame import mixer
 #********************************************************#
 #Play Sound
 def PlaySound(filename):
+    cur=os.getcwd()
+    print(cur)
+    os.chdir('voice')
+    print(os.getcwd())
     mixer.init()
     mixer.music.load(filename)
     mixer.music.play()
+    os.chdir(cur)
+    print(os.getcwd())
 #********************************************************#
 #Recognize function
 def Recognize():
