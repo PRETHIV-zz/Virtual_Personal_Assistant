@@ -405,6 +405,7 @@ root=Tk()
 root.geometry("400x400")
 root.title("Intelligent Personal Assistant")
 #Title Label for our project
+print('started')
 PlaySound('entry.mp3')
 l1=Label(root,text='Virtual Personal Assistant')
 l1.config(font =(ui_font, 18 ),foreground=ui_theme_color)
