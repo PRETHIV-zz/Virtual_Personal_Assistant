@@ -406,7 +406,7 @@ root.geometry("400x400")
 root.title("Intelligent Personal Assistant")
 #Title Label for our project
 print('started')
-PlaySound('dummy.mp3')
+PlaySound('entry.mp3')
 l1=Label(root,text='Virtual Personal Assistant')
 l1.config(font =(ui_font, 18 ),foreground=ui_theme_color)
 l1.grid(row=0,column=0,padx=45)

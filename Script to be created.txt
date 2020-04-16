@@ -1,0 +1,94 @@
+pip install speechRecognition
+
+
+pip install pyautogui
+
+
+pip install selenium
+
+
+
+pip install pygame
+
+
+Before installing pyaudio u have to install ms visual c++ for the exact architecture
+
+get users pc's architecture x86(32-bit), x64(64-bit) or ARM
+
+
+Download the exact driver
+
+
+32-Bit
+
+https://aka.ms/vs/16/release/VC_redist.x86.exe
+
+
+64-Bit
+
+https://aka.ms/vs/16/release/VC_redist.x64.exe
+
+ARM
+
+https://aka.ms/vs/16/release/VC_redist.arm64.exe
+
+
+
+
+
+change python control to downlods folder execute the program
+
+
+wait for user to get installed 
+
+
+
+return the control back to the folder python left
+
+
+download https://download.lfd.uci.edu/pythonlibs/s2jqpv5t/PyAudio-0.2.11-cp38-cp38-win32.whl
+
+
+Run the command pip install PyAudio-0.2.11-cp38-cp38-win32.whl
+
+
+
+Download google chrome driver
+
+
+
+for v.79
+
+
+	linux  https://chromedriver.storage.googleapis.com/79.0.3945.36/chromedriver_linux64.zip
+
+	windows https://chromedriver.storage.googleapis.com/79.0.3945.36/chromedriver_win32.zip
+
+	mac https://chromedriver.storage.googleapis.com/79.0.3945.36/chromedriver_mac64.zip
+
+for v.80
+
+	linux https://chromedriver.storage.googleapis.com/80.0.3987.106/chromedriver_linux64.zip
+	
+	windows https://chromedriver.storage.googleapis.com/80.0.3987.106/chromedriver_win32.zip
+
+	mac https://chromedriver.storage.googleapis.com/80.0.3987.106/chromedriver_mac64.zip
+
+for v.81
+
+	linux https://chromedriver.storage.googleapis.com/81.0.4044.69/chromedriver_linux64.zip
+
+	windows https://chromedriver.storage.googleapis.com/81.0.4044.69/chromedriver_win32.zip
+
+	mac https://chromedriver.storage.googleapis.com/81.0.4044.69/chromedriver_mac64.zip
+
+
+Tell user to Unzip the downloaded chrome driver and move it to our repo
+
+
+
+
+pip install gtts
+
+
+
