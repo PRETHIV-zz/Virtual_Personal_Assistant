@@ -74,7 +74,7 @@ cur_dir=os.getcwd()
 os.chdir("drivers")
 driver_dir=os.getcwd()
 os.chdir("..")
-packages_to_install=["ChromeBrowser","Microsoft visual c++","Chrome Driver","speechrecognition","pyautogui","selenium","pygame","gtts","PyAudio"]
+packages_to_install=["ChromeBrowser","Microsoft visual c++","Chrome Driver","speechrecognition","requests","pyautogui","selenium","pygame","gtts","PyAudio"]
 installed_packages=[]
 try:
     download_dir=os.path.expanduser("~")
@@ -338,6 +338,7 @@ try:
     print("4.Pygame             EU    for giving voice to vpa")
     print("5.gtts               DEV   For making voices using voice maker")
     print("6.PyAudio            EU    For playing music via speaker ")
+    print("7.Requests           EU    For getting beackend data's")
     time.sleep(3)
     try:
         status=os.system("pip install speechRecognition")
@@ -351,6 +352,14 @@ try:
             installed_packages.append(packages_to_install.pop(0))
         else:
             print("Your os is not supported by us try manually installing speechRecognition")
+    try:
+        if adminerror:
+            status=os.system("pip install --user requests")
+        else:
+            os.system("pip install requests")
+        installed_packages.append(packages_to_install.pop(0))
+    except:
+        print("Error occured while installing requests")
     try:
         if adminerror:
             print(1//0)
