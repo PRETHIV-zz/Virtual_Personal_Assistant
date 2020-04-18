@@ -37,6 +37,8 @@ Run our VPA by double clicking python.py
 
 # Techstacks Used
 
+[![N|Solid](https://miro.medium.com/max/1400/1*zvPL19PUTMslrhXPODj_Og.png)]()
+
 * __Python V3.8__ (As core language of the VPA )
     * Packages Used:
         * Tkinter(UI)
