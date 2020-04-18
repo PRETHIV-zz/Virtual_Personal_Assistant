@@ -45,6 +45,8 @@ Run our VPA by double clicking python.py
 
 [![N|Solid](https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTEs5M4TkSEKqMFHZG6ubQmNafzzhgUEORzRXPRnKT85b_8Rr5T&usqp=CAU)]()
 
+[![N|Solid](https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcR9onZ5F8slBTZTBKirnDe9-vgxr97HmDTnTJu--MsI9jaWiVEX&usqp=CAU)]()
+
 * __Python V3.8__ (As core language of the VPA )
     * Packages Used:
         * Tkinter(UI)
@@ -54,4 +56,5 @@ Run our VPA by double clicking python.py
         * PyAudio
         * gtts(making voice of VPA)
 * __Selenium3__(for browser automation)
+* __ElasticSearch__(for Backend)
 
