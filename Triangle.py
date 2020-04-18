@@ -6,6 +6,7 @@ icon_color="assets/voice.png"
 ui_theme_color="#3d0773"
 ui_font="Verdana"
 ui_fontsize=18
+fooditems=[]
 #********************************************************#
 #IMPORTED PACKAGES
 from tkinter import *
@@ -17,6 +18,7 @@ from selenium.webdriver.common.keys import Keys
 import time
 import tkinter.messagebox as Mbox
 from pygame import mixer
+from Backend import *
 #from imageai.Detection import ObjectDetection
 #********************************************************#
 #Play Sound
@@ -362,8 +364,40 @@ def Youtube(words):
 #********************************************************#
 def Ordered(e1):
     s=e1.get()
+    TASKNO=fetchCode(s)
+    global fooditems
+    if len(fooditems)==0:
+        fooditems=getFoodItems()
+    #if taskno is already there no need for guess
+    if TASKNO==1:
+        words=list(s.split())
+        w1=[]
+        for i in words:
+            w1.append(i.lower())
+        for i in fooditems:
+            if i in w1:
+                Order_Pizza(i)
+                return
+    elif TASKNO==2:
+        Order_Online(words)
+    elif TASKNO==3:
+        Search_Pc(words)
+    elif TASKNO==4:
+        Shut_PC()
+    elif TASKNO==5:
+        Seperatefiles()
+    elif TASKNO==6:
+        PickObjects()
+    elif TASKNO==7:
+        GoogleIt(words)
+    elif TASKNO==8:
+        os.system('start https://prethiv.github.io/tictacreact/')
+    elif TASKNO==9:
+        Youtube(words)
+    elif TASKNO==10:
+        GoogleIt1(s)
+    #else from this part it will try to guess
     #As for now it is hardcoded but it has to be made as backend
-    fooditems=['pizza','dosa','idly','burger','chapathi','vada','samosa']
     isfoodquery=False
     if s=="        Speak clearly" or s=="        Speak again!!!":
         print("Not recognized properly")
@@ -376,28 +410,50 @@ def Ordered(e1):
     for i in fooditems:
         if i in w1:
             isfoodquery=True
+            #1
+            recordQuery(s,1)
             Order_Pizza(i)
             return
     if 'order' in words or 'Order' in words or 'ORDER' in words or 'buy' in words or 'Buy' in words or 'BUY' in words:
+        #2
+        recordQuery(s,2)
         Order_Online(words)
     elif 'search' in words or 'Search' in words or 'SEARCH' in words:
+        #3
+        recordQuery(s,3)
         Search_Pc(words)
     elif 'shutdown' in words or 'Shutdown' in words or 'SHUTDOWN' in words:
+        #4
+        recordQuery(s,4)
         Shut_PC()
     elif 'seperatefiles' in words or 'seperate' in words or 'separate' in words or 'Seperatefiles' in words or 'SEPERATEFILES' in words or 'Seperate' in words or 'SEPERATE' in words:
+        #5
+        recordQuery(s,5)
         Seperatefiles()
     elif 'pickup' in words or 'Pickup' in words or 'PICKUP' in words or 'object' in words or 'Object' in words or 'OBJECT' in words: 
+        #6
+        recordQuery(s,6)
         PickObjects()
     elif 'google' in words or 'Google' in words:
+        #7
+        recordQuery(s,7)
         GoogleIt(words)
     elif 'play' in words or 'Play' in words:
         if 'games' in w1 or 'game' in w1:
+            #8
+            recordQuery(s,8)
             os.system('start https://prethiv.github.io/tictacreact/')
         else:
+            #9
+            recordQuery(s,9)
             Youtube(words)
     elif 'games' in w1 or 'game' in w1:
+        #8
+        recordQuery(s,8)
         os.system('start https://prethiv.github.io/tictacreact/')
     else:
+        #10
+        recordQuery(s,10)
         GoogleIt1(s)
 #********************************************************#
 
