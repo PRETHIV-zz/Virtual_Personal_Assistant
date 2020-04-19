@@ -370,6 +370,7 @@ def Youtube(words):
 def sendFeedBack(s):
     feedback=s.get()
     recordFeedBack(feedback)
+    Mbox.showinfo("Thank You for Sending your feedback","Feedback Sent")
 #********************************************************#
 def BugReport():
     h1=Tk()
