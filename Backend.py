@@ -3,7 +3,7 @@ import json
 
 ENDPOINT="https://xy1o4m1fg9:gwecxfoo1d@trianglevpa-9475796546.ap-southeast-2.bonsaisearch.net:443"
 
-def getFoodItems():
+def getEntityKnowledge():
     try:
         #response=requests.get("http://localhost:9200/triangle/orderfoods/1")
         #Online database added
@@ -13,7 +13,7 @@ def getFoodItems():
         print(type(response.text))
         res=json.loads(response.text)
         print(type(res))
-        food=res['_source']['fooditems']
+        food=res['_source']['entityknowledge1']
         return food
     except:
         return []
@@ -51,6 +51,39 @@ def fetchCode(msg):
             print("Knowledge is there")
             return CODE[0]['key']
     except Exception as e:
+        return 10
         print(e)
+
+
+
+def recordFeedBack(feedback):
+    try:
+        feedback=feedback.replace(" ","")
+        myobj={ "msg":feedback }
+        print("Sending Feedback")
+        res=requests.post(ENDPOINT+"/triangle_feedback/feedback/",json=myobj)
+        print("Response in Feedback",res.text)
+    except Exception as e:
+        print("Error in feedback sending BAckend")
+        print(e)
+
+def loadKnowledge():
+    try:
+        res=requests.get(ENDPOINT+"/triangle_knowledge/knowledge/1")
+        response=json.loads(res.text)
+        knowledge=response['_source']['knowledge']
+        return knowledge
+    except:
+        return []
+
+
+
+
+
+
+
+
+
+
 
 

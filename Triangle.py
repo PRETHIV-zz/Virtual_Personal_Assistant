@@ -6,7 +6,12 @@ icon_color="assets/voice.png"
 ui_theme_color="#3d0773"
 ui_font="Verdana"
 ui_fontsize=18
+
+entityknowledge=[]
+products=[]
 fooditems=[]
+shopnames=[]
+generalknowledge=[]
 #********************************************************#
 #IMPORTED PACKAGES
 from tkinter import *
@@ -53,7 +58,7 @@ def Order_Pizza(words):
     os.system(url_to_lookup_for)
 #********************************************************#
 #Order_Online
-def Order_Online(words):
+def Order_Online(words,shop="amazon",search=""):
     search=""
     shop="amazon"
     order_found=False
@@ -140,7 +145,7 @@ def Start_Search(e2,e3):
 #********************************************************#
 
 #Auxillary for Search PC
-def auxilary(search,disk):
+def auxilary(search="",disk="D"):
     h1=Tk()
     h1.geometry("400x200")
     h1['bg']=ui_theme_color
@@ -362,99 +367,261 @@ def Youtube(words):
     pgi.moveTo(131,298,1)
     pgi.click()
 #********************************************************#
-def Ordered(e1):
-    s=e1.get()
-    TASKNO=fetchCode(s)
+def sendFeedBack(s):
+    feedback=s.get()
+    recordFeedBack(feedback)
+#********************************************************#
+def BugReport():
+    h1=Tk()
+    h1.geometry("500x150")
+    h1.title("Bug Report")
+
+    l1a=Label(h1,text='We are happy to help u')
+    l1a.config(font=(ui_font, 10),foreground="#ffffff")
+    l1a.grid(row=0,column=0)
+    l1a['bg']=ui_theme_color
+
+    l1a=Label(h1,text='Bug or suggestions ')
+    l1a.config(font=(ui_font, 10),foreground="#ffffff")
+    l1a.grid(row=1,column=0)
+    l1a['bg']=ui_theme_color
+
+    e2=Entry(h1)
+    e2.config(font=(ui_font, 10))
+    e2.grid(row=1,column=1,padx=20)
+
+    b1a=Button(h1,text='Send US',command=lambda:sendFeedBack(e2))
+    b1a.config(font =(ui_font, 10 ),foreground="#ffffff",borderwidth=1,highlightthickness=2,highlightcolor='#ffffff',highlightbackground='#ffffff')
+    b1a['bg']=ui_theme_color
+    b1a.grid(row=2,column=0,pady=10,padx=20)
+
+    h1['bg']=ui_theme_color
+    h1.mainloop()
+    
+#********************************************************#
+
+def predictTaskno(words):
+    global generalknowledge
     global fooditems
-    if len(fooditems)==0:
-        fooditems=getFoodItems()
-    #if taskno is already there no need for guess
-    if TASKNO==1:
+    global products
+    global shopnames
+    if len(generalknowledge)==0:
+        #indicates cant predict without knowledge
+        return -99
+    k=[]
+    w1=[]
+    for i in generalknowledge:
+        temp=[]
+        for l1 in i:
+            temp.append(l1.lower())
+        k.append(temp)
+    for i in words:
+        w1.append(i.lower())
+    ind=0
+    code=0
+    maxi=0
+    for i in k:
+        cnt=0
+        for j in w1:
+            if j in i:
+                cnt+=1
+        if cnt>=maxi:
+            maxi=cnt
+            code=ind
+        ind+=1
+    print("Code ",code)
+    if code==1 or code==2:
+        if len(fooditems)==0 or len(products)==0:
+            return -99
+        else:
+            for i in fooditems:
+                for j in w1:
+                    if i.lower()==j:
+                        Order_Pizza(j)
+                        return 200
+            shop2look="amazon"
+            product=""
+            for i in products:
+                for j in w1:
+                    if j in shopnames:
+                        shop2look=j
+                    if i.lower()==j:
+                        Order_Online(w1,shop2look,i.lower())
+                        return 200
+            return -99
+    else:
+        if code!=11:
+            if code==3:
+                file2look=""
+                disk="D"
+                for i in w1:
+                    if "." in i:
+                        file2look=i
+                    if i=="d":
+                        disk="D:"
+                    elif i=="e":
+                        disk="E:"
+                    elif i=="f":
+                        disk="F:"
+                    elif i=="C":
+                        disk="C:"
+                auxilary(file2look,disk)
+                return 200
+            else:
+                return code
+        else:
+            return -99
+    
+
+#********************************************************#
+def Ordered(e1):
+    try:
+        s=e1.get()
         words=list(s.split())
+        TASKNO=fetchCode(s)
+        global generalknowledge
+        if len(generalknowledge)==0:
+            print("No knowledge henxe loading")
+            generalknowledge=loadKnowledge()
+            print("Knowledge Loaded ",generalknowledge)
+        global entityknowledge
+        global fooditems
+        global products
+        global shopnames
+        if len(entityknowledge)==0:
+            print("No entity knowledge")
+            entityknowledge=getEntityKnowledge()
+            print("Entity knowledge loaded",entityknowledge)
+            fooditems=entityknowledge[0]
+            products=entityknowledge[1]
+            print("Food items ",fooditems,"Products ",products)
+            shopnames=entityknowledge[2]
+            print("Shopnames received",shopnames)
+        #PREDICT USING KNOWLEDGE
+        if TASKNO==-99:
+            TASKNO=predictTaskno(words)
+            print("Predicted COde ",TASKNO)
+            if TASKNO==200:
+                #Indicates the operation alredy done
+                return
+        #if taskno is already there no need for guess
+        if TASKNO==1:
+            words=list(s.split())
+            w1=[]
+            for i in words:
+                w1.append(i.lower())
+            for i in fooditems:
+                if i in w1:
+                    Order_Pizza(i)
+                    return
+        elif TASKNO==2:
+            Order_Online(words)
+            return
+        elif TASKNO==3:
+            file2look=""
+            disk="D"
+            for i in words:
+                if "." in i:
+                    file2look=i
+                if i.lower()=="d":
+                    disk="D:"
+                elif i.lower()=="e":
+                    disk="E:"
+                elif i.lower()=="f":
+                    disk="F:"
+                elif i.lower()=="C":
+                    disk="C:"
+            auxilary(file2look,disk)
+            return
+        elif TASKNO==4:
+            Shut_PC()
+            return
+        elif TASKNO==5:
+            Seperatefiles()
+            return
+        elif TASKNO==6:
+            PickObjects()
+            return
+        elif TASKNO==7:
+            GoogleIt(words)
+            return
+        elif TASKNO==8:
+            os.system('start https://prethiv.github.io/tictacreact/')
+            return
+        elif TASKNO==9:
+            Youtube(words)
+            return
+        elif TASKNO==10:
+            GoogleIt1(s)
+            return
+        elif TASKNO==11:
+            BugReport()
+            return
+        #else from this part it will try to guess
+        #As for now it is hardcoded but it has to be made as backend
+        isfoodquery=False
+        if s=="        Speak clearly" or s=="        Speak again!!!":
+            print("Not recognized properly")
+            e1s.set("        Speak again!!!")
+            return
         w1=[]
         for i in words:
             w1.append(i.lower())
         for i in fooditems:
             if i in w1:
+                isfoodquery=True
+                #1
+                recordQuery(s,1)
                 Order_Pizza(i)
                 return
-    elif TASKNO==2:
-        Order_Online(words)
-    elif TASKNO==3:
-        Search_Pc(words)
-    elif TASKNO==4:
-        Shut_PC()
-    elif TASKNO==5:
-        Seperatefiles()
-    elif TASKNO==6:
-        PickObjects()
-    elif TASKNO==7:
-        GoogleIt(words)
-    elif TASKNO==8:
-        os.system('start https://prethiv.github.io/tictacreact/')
-    elif TASKNO==9:
-        Youtube(words)
-    elif TASKNO==10:
-        GoogleIt1(s)
-    #else from this part it will try to guess
-    #As for now it is hardcoded but it has to be made as backend
-    isfoodquery=False
-    if s=="        Speak clearly" or s=="        Speak again!!!":
-        print("Not recognized properly")
-        e1s.set("        Speak again!!!")
-        return
-    words=list(s.split())
-    w1=[]
-    for i in words:
-        w1.append(i.lower())
-    for i in fooditems:
-        if i in w1:
-            isfoodquery=True
-            #1
-            recordQuery(s,1)
-            Order_Pizza(i)
-            return
-    if 'order' in words or 'Order' in words or 'ORDER' in words or 'buy' in words or 'Buy' in words or 'BUY' in words:
-        #2
-        recordQuery(s,2)
-        Order_Online(words)
-    elif 'search' in words or 'Search' in words or 'SEARCH' in words:
-        #3
-        recordQuery(s,3)
-        Search_Pc(words)
-    elif 'shutdown' in words or 'Shutdown' in words or 'SHUTDOWN' in words:
-        #4
-        recordQuery(s,4)
-        Shut_PC()
-    elif 'seperatefiles' in words or 'seperate' in words or 'separate' in words or 'Seperatefiles' in words or 'SEPERATEFILES' in words or 'Seperate' in words or 'SEPERATE' in words:
-        #5
-        recordQuery(s,5)
-        Seperatefiles()
-    elif 'pickup' in words or 'Pickup' in words or 'PICKUP' in words or 'object' in words or 'Object' in words or 'OBJECT' in words: 
-        #6
-        recordQuery(s,6)
-        PickObjects()
-    elif 'google' in words or 'Google' in words:
-        #7
-        recordQuery(s,7)
-        GoogleIt(words)
-    elif 'play' in words or 'Play' in words:
-        if 'games' in w1 or 'game' in w1:
+        if 'order' in words or 'Order' in words or 'ORDER' in words or 'buy' in words or 'Buy' in words or 'BUY' in words:
+            #2
+            recordQuery(s,2)
+            Order_Online(words)
+        elif 'search' in words or 'Search' in words or 'SEARCH' in words:
+            #3
+            recordQuery(s,3)
+            Search_Pc(words)
+        elif 'shutdown' in words or 'Shutdown' in words or 'SHUTDOWN' in words:
+            #4
+            recordQuery(s,4)
+            Shut_PC()
+        elif 'seperatefiles' in words or 'seperate' in words or 'separate' in words or 'Seperatefiles' in words or 'SEPERATEFILES' in words or 'Seperate' in words or 'SEPERATE' in words:
+            #5
+            recordQuery(s,5)
+            Seperatefiles()
+        elif 'pickup' in words or 'Pickup' in words or 'PICKUP' in words or 'object' in words or 'Object' in words or 'OBJECT' in words: 
+            #6
+            recordQuery(s,6)
+            PickObjects()
+        elif 'google' in words or 'Google' in words:
+            #7
+            recordQuery(s,7)
+            GoogleIt(words)
+        elif 'play' in words or 'Play' in words:
+            if 'games' in w1 or 'game' in w1:
+                #8
+                recordQuery(s,8)
+                os.system('start https://prethiv.github.io/tictacreact/')
+            else:
+                #9
+                recordQuery(s,9)
+                Youtube(words)
+        elif 'games' in w1 or 'game' in w1:
             #8
             recordQuery(s,8)
             os.system('start https://prethiv.github.io/tictacreact/')
+        elif 'bug' in w1 and 'report' in w1 or 'suggest' in w1:
+            #11
+            BugReport()
         else:
-            #9
-            recordQuery(s,9)
-            Youtube(words)
-    elif 'games' in w1 or 'game' in w1:
-        #8
-        recordQuery(s,8)
-        os.system('start https://prethiv.github.io/tictacreact/')
-    else:
-        #10
-        recordQuery(s,10)
-        GoogleIt1(s)
+            #10
+            recordQuery(s,10)
+            GoogleIt1(s)
+    except Exception as err:
+        #Any Kind of error will becaught here 
+        print("Exception occured in VPA")
+        recordFeedBack("ErrorMessgae:"+str(err)+"***"+"UserInput:"+s)
 #********************************************************#
 
 root=Tk()
@@ -486,8 +653,10 @@ e1['bg']=ui_theme_color
 #Order Button
 photo = PhotoImage(file = "assets/execute.png") 
 
-b1=Button(root,text='Execute',image=photo,command=lambda:Ordered(e1),borderwidth=0,highlightthickness=0)
-b1.grid(row=3,column=0)
-
+try:
+    b1=Button(root,text='Execute',image=photo,command=lambda:Ordered(e1),borderwidth=0,highlightthickness=0)
+    b1.grid(row=3,column=0)
+except:
+    print("Error occured in Triangle")
 root['bg'] = ui_theme_color
 root.mainloop()
