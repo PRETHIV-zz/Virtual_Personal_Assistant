@@ -57,6 +57,7 @@ Run our VPA by double clicking python.py
         * Pygame
         * PyAudio
         * gtts(making voice of VPA)
+        * requests(For performing REST CALLS)
 * __Selenium3__(for browser automation)
 * __ElasticSearch__(for Backend)
 
