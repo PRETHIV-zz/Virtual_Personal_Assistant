@@ -33,7 +33,7 @@ Download the Project as a zip https://github.com/PRETHIV/Virtual_Personal_Assist
 
 Unzip it and run the Initializer script it will auto configure for you everything.
 
-Run our VPA by double clicking python.py
+Run our VPA by double clicking Triangle.py
 
 # Techstacks Used
 
